@@ -5,6 +5,7 @@
   <p>A scalable, lightweight real-time communication platform engineered from scratch using vanilla web technologies and Node.js, featuring an intuitive iOS-inspired dark-mode interface.</p>
 
   <p>
+    <a href="#-preview">Preview</a> •
     <a href="#-key-features">Features</a> •
     <a href="#-tech-stack--tools">Tech Stack</a> •
     <a href="#-project-architecture">Architecture</a> •
@@ -18,6 +19,14 @@
   <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white" alt="Node.js">
   <img src="https://img.shields.io/badge/VS%20Code-007ACC?style=flat-square&logo=visual-studio-code&logoColor=white" alt="VS Code">
   <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="License">
+</div>
+
+---
+
+## 📸 Preview
+
+<div align="center">
+  <img src="Photo/nongkrong.jpg" alt="Nongkrong.in Preview" width="800px" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
 </div>
 
 ---
@@ -58,6 +67,8 @@ realtime-chat/
 ├── database.js             # Data-access layer (JSON persistence abstraction)
 ├── data/                   
 │   └── db.json             # Automated transactional database store
+├── Photo/                  
+│   └── nongkrong.jpg       # Application screenshot / preview asset
 ├── package.json            # Project manifests and dependency trees
 └── public/                 # Client-side static assets
     ├── login.html          # Authentication view (HTML5)

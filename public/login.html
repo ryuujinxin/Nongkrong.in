@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Masuk - ChatApp</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <div class="auth-wrap">
+      <div class="auth-logo">💬</div>
+      <h1>Selamat Datang</h1>
+      <p class="subtitle">Masuk untuk mulai mengobrol real-time</p>
+
+      <div class="error-msg" id="errorMsg"></div>
+
+      <form id="loginForm">
+        <div class="field">
+          <label>Username</label>
+          <input type="text" id="username" autocomplete="username" required>
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="password" autocomplete="current-password" required>
+        </div>
+        <button type="submit" class="btn-primary">Masuk</button>
+      </form>
+
+      <div class="auth-switch">
+        Belum punya akun? <a href="/register.html">Daftar di sini</a>
+      </div>
+    </div>
+  </div>
+
+<script>
+const form = document.getElementById('loginForm');
+const errorMsg = document.getElementById('errorMsg');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  errorMsg.classList.remove('show');
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value;
+
+  try {
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Gagal masuk');
+    window.location.href = '/chat.html';
+  } catch (err) {
+    errorMsg.textContent = err.message;
+    errorMsg.classList.add('show');
+  }
+});
+</script>
+</body>
+</html>

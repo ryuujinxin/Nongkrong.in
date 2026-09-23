@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Daftar - ChatApp</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <div class="auth-wrap">
+      <div class="auth-logo">💬</div>
+      <h1>Buat Akun</h1>
+      <p class="subtitle">Daftar dulu sebelum mulai chat</p>
+
+      <div class="error-msg" id="errorMsg"></div>
+
+      <form id="registerForm">
+        <div class="field">
+          <label>Username</label>
+          <input type="text" id="username" autocomplete="username" minlength="3" required>
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="password" autocomplete="new-password" minlength="6" required>
+        </div>
+        <div class="field">
+          <label>Ulangi Password</label>
+          <input type="password" id="password2" autocomplete="new-password" minlength="6" required>
+        </div>
+        <button type="submit" class="btn-primary">Daftar</button>
+      </form>
+
+      <div class="auth-switch">
+        Sudah punya akun? <a href="/login.html">Masuk di sini</a>
+      </div>
+    </div>
+  </div>
+
+<script>
+const form = document.getElementById('registerForm');
+const errorMsg = document.getElementById('errorMsg');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  errorMsg.classList.remove('show');
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value;
+  const password2 = document.getElementById('password2').value;
+
+  if (password !== password2) {
+    errorMsg.textContent = 'Password tidak sama';
+    errorMsg.classList.add('show');
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Gagal daftar');
+    window.location.href = '/chat.html';
+  } catch (err) {
+    errorMsg.textContent = err.message;
+    errorMsg.classList.add('show');
+  }
+});
+</script>
+</body>
+</html>

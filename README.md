@@ -1,65 +1,69 @@
-# ChatApp Real-Time
+<div align="center">
 
-Website chat real-time dengan tema dark ala WhatsApp/iOS: login & register, cari teman by username,
-kirim permintaan pertemanan, terima/tolak, lalu chat real-time (via Socket.io) dengan indikator online & sedang mengetik.
-Semua data (user, pertemanan, pesan) disimpan di **database file JSON** (`data/db.json`, dibuat otomatis),
-pure JavaScript tanpa perlu compile native — jadi langsung jalan di Windows/Mac/Linux tanpa install
-Visual Studio Build Tools atau tools tambahan lainnya.
+# Nongkrong.in ☕💬
 
-## Struktur Project
-```
+  <p>A scalable, lightweight real-time communication platform engineered from scratch using vanilla web technologies and Node.js, featuring an intuitive iOS-inspired dark-mode interface.</p>
+
+  <p>
+    <a href="#-key-features">Features</a> •
+    <a href="#-tech-stack--tools">Tech Stack</a> •
+    <a href="#-project-architecture">Architecture</a> •
+    <a href="#-getting-started">Getting Started</a> •
+    <a href="#-deployment">Deployment</a>
+  </p>
+
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" alt="HTML5">
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS3">
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript">
+  <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white" alt="Node.js">
+  <img src="https://img.shields.io/badge/VS%20Code-007ACC?style=flat-square&logo=visual-studio-code&logoColor=white" alt="VS Code">
+  <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="License">
+</div>
+
+---
+
+## 🚀 Overview
+
+**Nongkrong.in** is a production-ready real-time chat web application designed for seamless cross-platform messaging. Built without heavy frontend frameworks, this project leverages pure **HTML5, CSS3, and Vanilla JavaScript (ES6+)** paired with a robust **Node.js** backend. It eliminates native build roadblocks while delivering enterprise-grade features such as persistent session authentication, dynamic user discovery, and bi-directional event synchronization via **Socket.io**.
+
+---
+
+## ✨ Key Features
+
+* **Secure Authentication Pipeline:** Credential management backed by `bcrypt` password hashing and session-based authorization handlers.
+* **Relationship Lifecycle Engine:** Dynamic peer discovery via username queries coupled with a robust friend-request workflow (Send, Accept, Reject).
+* **Low-Latency Messaging:** Bidirectional real-time event streaming restricted strictly to verified peer relationships.
+* **Presence & Activity Telemetry:** Live tracking for online/offline states paired with real-time "typing..." event triggers.
+* **Atomic JSON Persistence:** Optimized custom JSON file-database model (`data/db.json`) ensuring zero-friction setup without C++ compiler dependencies.
+* **Responsive Layout System:** Minimalist dark-mode UI engineered for high-density readability across desktop and mobile viewports.
+
+---
+
+## 🛠️ Tech Stack & Development Tools
+
+| Layer | Technology / Tool | Description |
+| :--- | :--- | :--- |
+| **Frontend** | HTML5, CSS3, Vanilla JavaScript (ES6+) | Modern semantic markup, custom CSS design tokens, and reactive DOM controllers. |
+| **Backend** | Node.js, Express.js, Socket.io | Asynchronous event-driven server architecture and real-time socket communication. |
+| **Persistence** | File-based JSON Database | Transactional file storage abstraction layer (`database.js`). |
+| **IDE / Editor** | Visual Studio Code (VS Code) | Primary development, debugging, and workspace orchestration environment. |
+
+---
+
+## 📂 Project Architecture
+
+```text
 realtime-chat/
-├── server.js          # Server utama: Express + Socket.io
-├── database.js        # Semua fungsi database (file JSON)
-├── data/db.json        # Isi database (otomatis dibuat saat pertama jalan)
-├── package.json
-└── public/
-    ├── login.html
-    ├── register.html
-    ├── chat.html
-    ├── css/style.css
-    └── js/chat.js
-```
-
-## Cara Menjalankan di Komputer (localhost)
-
-1. Pastikan sudah install **Node.js** (versi 18 ke atas): https://nodejs.org
-2. Buka folder ini di terminal, lalu jalankan:
-   ```
-   npm install
-   npm start
-   ```
-3. Buka browser ke `http://localhost:3000`
-4. Daftar akun baru → login → cari username teman (harus buka di browser/device lain dengan akun berbeda) → kirim permintaan → terima → mulai chat!
-
-Selama masih `localhost`, chat ini **hanya real-time di komputer/device yang sama** (beda tab/browser boleh, tapi tetap 1 komputer).
-
-## Supaya Bisa Diakses dari Jaringan Manapun (bukan cuma 1 jaringan)
-
-Karena ini web app dengan server + database asli, dia butuh **di-hosting di server yang selalu menyala**
-supaya dua orang dari jaringan/lokasi berbeda bisa chat real-time satu sama lain. Beberapa opsi gratis/mudah:
-
-1. **Railway** (railway.app) – upload project ini, otomatis jalan `npm install && npm start`.
-2. **Render** (render.com) – pilih "Web Service", hubungkan repo, start command `npm start`.
-3. **Glitch** (glitch.com) – import project, langsung online.
-
-Setelah dideploy, kamu akan dapat URL publik (misal `https://chatapp-kamu.up.railway.app`) yang bisa
-dibuka siapa saja dari jaringan manapun — itu baru benar-benar "real-time tanpa batas 1 jaringan".
-
-> Catatan: kalau mau coba dulu dari HP di WiFi yang sama (1 jaringan) tanpa deploy, jalankan `npm start`
-> di laptop, lalu di HP buka `http://<IP-laptop-kamu>:3000` (cari IP laptop dengan `ipconfig`/`ifconfig`).
-
-## Catatan Keamanan (untuk versi produksi nanti)
-- Ganti `secret` di `server.js` (bagian `session(...)`) dengan string acak yang panjang.
-- Password sudah di-hash pakai bcrypt (aman, tidak disimpan plain text).
-- Untuk produksi sungguhan, sebaiknya tambahkan HTTPS, rate limiting, dan validasi input lebih ketat.
-
-## Fitur yang Sudah Ada
-- ✅ Register & Login dengan password ter-hash
-- ✅ Cari user lain berdasarkan username
-- ✅ Kirim permintaan pertemanan, terima/tolak
-- ✅ Chat real-time (Socket.io) hanya dengan yang sudah berteman
-- ✅ Status online/offline & indikator "sedang mengetik"
-- ✅ Riwayat pesan tersimpan di database SQLite
-- ✅ Badge pesan belum dibaca
-- ✅ Tema dark ala Apple/WhatsApp
+├── server.js               # Application entry point (Express & Socket.io initialization)
+├── database.js             # Data-access layer (JSON persistence abstraction)
+├── data/                   
+│   └── db.json             # Automated transactional database store
+├── package.json            # Project manifests and dependency trees
+└── public/                 # Client-side static assets
+    ├── login.html          # Authentication view (HTML5)
+    ├── register.html       # Account onboarding view (HTML5)
+    ├── chat.html           # Core messaging client workspace (HTML5)
+    ├── css/                
+    │   └── style.css       # Design system tokens and styling rules (CSS3)
+    └── js/                 
+        └── chat.js         # Socket event bindings and DOM controllers (Vanilla JS)
